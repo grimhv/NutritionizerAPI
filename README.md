@@ -57,3 +57,5 @@ The JSON string of a GET request returns something like this:
       ]
     }
 ```
+
+I am planning on adding full CRUD, and once that's done, I will write a browser extension that parses a website with a recipe and sends the data to the API server.
