@@ -1,6 +1,8 @@
 # NutritionizerAPI
 
-This is very much a WIP.  I will continue developing it as I learn more about ASP.NET APIs.  Currently, it connects to a PostgreSQL DB using Entity Framework and allows you to GET a recipe by its ID.
+This is very much a WIP.  Originally written in Flask, I decided to switch over to ASP.NET to learn it and I will continue developing it as I go along.
+
+Currently, it connects to a PostgreSQL DB using Entity Framework and allows you to GET a recipe by its ID.
 
 Table schemas are as follows:
 ```
