@@ -36,7 +36,7 @@ The JSON string of a GET request returns something like this:
       "webId": 12345,
       "rating": 5.5,
       "website": "a.recipe.com",
-      "url": "a.recipe.com/carrotanans",
+      "url": "a.recipe.com/carrotanas",
       "ingredients": [
         {
           "ingredientId": 0,
