@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Honeypox.Nutritionizer.Data;
-using Honeypox.Nutritionizer.Models;
-using Honeypox.Nutritionizer.Classes;
-using Microsoft.Extensions.Options;
+using AutoMapper;
+using Honeypox.Nutritionizer.Dtos;
 
 namespace Honeypox.Nutritionizer.Controllers
 {
@@ -12,29 +11,31 @@ namespace Honeypox.Nutritionizer.Controllers
     public class RecipeController : ControllerBase // Inherit from ControllerBase, which excludes "Views"
     {
         private readonly IRecipeAPIRepo _repository;
+        private readonly IMapper _mapper;
 
         // This utilizes dependency injection to _actually_ use `SqlRecipeAPIRepo` instead of `IRecipeAPIRepo`
-        public RecipeController(IRecipeAPIRepo repository)
+        public RecipeController(IRecipeAPIRepo repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<List<string>> GetAllRecipes()
+        public ActionResult<IEnumerable<RecipeReadDto>> GetAllRecipes()
         {
             var recipeItems = _repository.GetAllRecipes();
-            return Ok(recipeItems);
+            return Ok(_mapper.Map<IEnumerable<RecipeReadDto>>(recipeItems));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Recipe> GetRecipeById(int id)
+        public ActionResult<RecipeReadDto> GetRecipeById(int id)
         {
             var recipeItem = _repository.GetRecipeById(id);
             if (recipeItem == null)
             {
                 return NotFound();
             }
-            return Ok(recipeItem);
+            return Ok(_mapper.Map<RecipeReadDto>(recipeItem));
         }
     }
 }

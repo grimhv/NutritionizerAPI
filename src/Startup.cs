@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Honeypox.Nutritionizer.Data;
+using Npgsql;
+using AutoMapper;
 
 namespace Honeypox.Nutritionizer
 {
@@ -25,11 +27,18 @@ namespace Honeypox.Nutritionizer
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new NpgsqlConnectionStringBuilder();
+            builder.ConnectionString = Configuration.GetConnectionString("PostgreSqlConnection");
+            builder.Username = Configuration["UserID"];
+            builder.Password = Configuration["Password"];
+
             services.AddDbContext<RecipeContext>(opt =>
-                opt.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnection")));
+                opt.UseNpgsql(builder.ConnectionString));
 
             services.AddControllers();
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
             // Use service collection: services, to register IRecipeAPIRepo with SqlRecipeAPIRepo
             services.AddScoped<IRecipeAPIRepo, SqlRecipeAPIRepo>();
 

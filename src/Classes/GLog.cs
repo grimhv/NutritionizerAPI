@@ -11,7 +11,7 @@ namespace Honeypox.GLog
         /// <summary> Used to customize the text for the event level of an entry </summary>
         public class LogLevel
         {
-            // References parent class Glog
+            // References parent class GLog
             private Logger _logger;
             public LogLevel(Logger logger)
             {
